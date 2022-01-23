@@ -374,10 +374,13 @@
 		qdel(src)
 	else if(timetokill <= 0)
 		to_chat(captured, span_boldnotice("As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy..."))
+
+		captured.ghostize(0)
+		/*
 		var/mob/dead/observer/ghost = captured.ghostize(1)
 		if(captured.mind)
 			if(ghost)
-				ghost.mind = null
+				ghost.mind = null		*/
 		qdel(captured)
 		qdel(src)
 	else

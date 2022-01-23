@@ -208,6 +208,7 @@
 	UnregisterSignal(SSticker, COMSIG_TICKER_ERROR_SETTING_UP)
 	RegisterSignal(SSticker, COMSIG_TICKER_ENTER_SETTING_UP, .proc/show_join_button)
 
+/*
 /atom/movable/screen/lobby/button/observe
 	screen_loc = "TOP:-40,CENTER:-54"
 	icon = 'icons/hud/lobby/observe.dmi'
@@ -234,6 +235,7 @@
 	flick("[base_icon_state]_enabled", src)
 	set_button_status(TRUE)
 	UnregisterSignal(SSticker, COMSIG_TICKER_ENTER_PREGAME, .proc/enable_observing)
+*/
 
 /atom/movable/screen/lobby/button/settings
 	icon = 'icons/hud/lobby/bottom_buttons.dmi'

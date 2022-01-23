@@ -279,10 +279,13 @@ Transfer_mind is there to check if mob is being deleted/not going to have a body
 Works together with spawning an observer, noted above.
 */
 
-/mob/proc/ghostize(can_reenter_corpse = TRUE)
+/mob/proc/ghostize(can_reenter_corpse = FALSE)
 	if(key)
 		if(key[1] != "@") // Skip aghosts.
 			if(HAS_TRAIT(src, TRAIT_CORPSELOCKED) && can_reenter_corpse) //If you can re-enter the corpse you can't leave when corpselocked
+				return
+			if(!can_reenter_corpse)
+				abandon_mob_respawn()
 				return
 			stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now
 			var/mob/dead/observer/ghost = new(src) // Transfer safety to observer spawning proc.
@@ -290,11 +293,9 @@ Works together with spawning an observer, noted above.
 			ghost.can_reenter_corpse = can_reenter_corpse
 			ghost.key = key
 			ghost.client?.init_verbs()
-			if(!can_reenter_corpse)// Disassociates observer mind from the body mind
-				ghost.mind = null
 			return ghost
 
-/mob/living/ghostize(can_reenter_corpse = TRUE)
+/mob/living/ghostize(can_reenter_corpse = FALSE)
 	. = ..()
 	if(. && can_reenter_corpse)
 		var/mob/dead/observer/ghost = .
@@ -303,6 +304,7 @@ Works together with spawning an observer, noted above.
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
 */
+/*
 /mob/living/verb/ghost()
 	set category = "OOC"
 	set name = "Ghost"
@@ -328,6 +330,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(response != "Ghost")
 		return
 	ghostize(FALSE)
+*/
 
 /mob/dead/observer/Move(NewLoc, direct, glide_size_override = 32)
 	if(updatedir)
