@@ -121,7 +121,7 @@
 /obj/structure/table/abductor/wabbajack/proc/sleeper_dreams(mob/living/sleeper)
 	if(sleeper in sleepers)
 		to_chat(sleeper, span_revennotice("While you slumber, you have the strangest dream, like you can see yourself from the outside."))
-		sleeper.ghostize(TRUE)
+		sleeper.ghostize(FALSE)
 
 /obj/structure/table/abductor/wabbajack/left
 	desc = "You sleep so it may wake."

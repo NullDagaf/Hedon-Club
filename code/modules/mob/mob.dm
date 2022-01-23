@@ -212,7 +212,7 @@
 		//This entire if/else chain could be in two lines but isn't for readibilties sake.
 		var/msg = message
 		var/msg_type = MSG_VISUAL
-		
+
 		if(M.see_invisible < invisibility)//if src is invisible to M
 			msg = blind_message
 			msg_type = MSG_AUDIBLE
@@ -687,13 +687,13 @@
 	set name = "Respawn"
 	set category = "OOC"
 
-	if (CONFIG_GET(flag/norespawn) && (!check_rights_for(usr.client, R_ADMIN) || tgui_alert(usr, "Respawn configs disabled. Do you want to use your permissions to circumvent it?", "Respawn", list("Yes", "No")) != "Yes"))
-		return
-
 	if ((stat != DEAD || !( SSticker )))
 		to_chat(usr, span_boldnotice("You must be dead to use this!"))
 		return
 
+	abandon_mob_respawn()
+
+/mob/proc/abandon_mob_respawn()
 	log_game("[key_name(usr)] used the respawn button.")
 
 	to_chat(usr, span_boldnotice("Please roleplay correctly!"))
@@ -1040,7 +1040,7 @@
 	if(!istext(newname) && !isnull(newname))
 		stack_trace("[src] attempted to change its name from [oldname] to the non string value [newname]")
 		return FALSE
-		
+
 	log_message("[src] name changed from [oldname] to [newname]", LOG_OWNERSHIP)
 
 	log_played_names(ckey, newname)
@@ -1334,7 +1334,7 @@
 /mob/proc/become_uncliented()
 	if(!canon_client)
 		return
-		
+
 	for(var/foo in canon_client.player_details.post_logout_callbacks)
 		var/datum/callback/CB = foo
 		CB.Invoke()
